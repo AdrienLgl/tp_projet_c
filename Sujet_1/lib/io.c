@@ -11,12 +11,15 @@ int getLength(char* str) {
 	return length;
 }
 
+// TODO 1
+// print character type
 void printChar(char c)
 {
 	putChar(0,&c,1);
 }
 
-
+// TODO 2
+// print string type
 void printString(char* str)
 {
 	int length = getLength(str);
@@ -26,7 +29,8 @@ void printString(char* str)
 	}
 }
 
-
+// TODO 3
+// print digit
 void printDigit(int i)
 {
 	if (i >= 0 && i < 10) {
@@ -36,7 +40,8 @@ void printDigit(int i)
 	}
 }
 
-
+// TODO 4
+// print integer type
 void printInteger(int i)
 {
 	char c[128] = { 0 };
@@ -64,7 +69,8 @@ int intlen(int i) {
 	return count;
 }
 
-
+// TODO 5
+// create a printf to print differents types
 int newPrintf(char* str, ...)
 {
 	va_list parameters;
@@ -82,42 +88,37 @@ int newPrintf(char* str, ...)
         }
 
         switch( *str ++ ) {
-            case 'd':
+            case 'd': // integer
                 {
                     int integerValue = (int) va_arg(parameters, int);
 					totalCharacters += intlen(integerValue);
                     printInteger(integerValue);
                 }
                 break;
-            case 's':
+            case 's': // string
                 {
                     char* string = (char*) va_arg(parameters, char*);
 					totalCharacters += strlen(string);
                     printString(string);
                 }
                 break;
-			case 'c':
+			case 'c': // character
 				{
 					char c = (char) va_arg(parameters, int);
 					totalCharacters ++;
 					printChar(c);
 				}
 				break;
-            default:
+            default: // error if type isn't defined
                 printString("Specified str is not supported!");
 				break;
         }
     }
 
-    /* Release va_list resources */
+    // Release va_list resources
     va_end( parameters );
 	return totalCharacters;
 }
-
-int printG() {
-	
-}
-
 
 
 

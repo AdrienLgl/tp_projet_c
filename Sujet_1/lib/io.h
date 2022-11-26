@@ -19,10 +19,13 @@ void printInteger(int i);
 //TODO5
 int newPrintf(char* str, ...);
 
-//TODO6
-int printG();
-	
-
-
-
 #endif
+
+//TODO6
+// generic function
+#define printG(X) _Generic((X), \
+				int: printInteger, \
+				char*: printString, \
+                char: printChar, \
+                  default: printString \
+              )(X)
