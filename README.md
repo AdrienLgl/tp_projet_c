@@ -47,7 +47,7 @@ Rajoutez maintenant les types manquants du langage C à votre fonction  **newPri
 
 ## Partie 2
 
-Sur cet exercice, le but était de concevoir une calculatrice acceptant les calculs floatants et entiers selon certains opérateurs.
+Sur cet exercice, le but était de concevoir une calculatrice acceptant les calculs flotants et entiers selon certains opérateurs.
 
 Différentes bibliothèques pouvaient être employées.
 

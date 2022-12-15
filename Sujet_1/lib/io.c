@@ -51,8 +51,8 @@ void printInteger(int i)
 	} while ((i/=10) > 0);
 	c[n] = '\0';
 	char rev[n];
-	int end = n -1;
-	for (int begin = 0; begin < n; begin++)
+	int end = n - 1;
+	for (int begin = 0; begin <= n; begin++)
 	{
 		rev[begin] = c[end];
 		end--;
