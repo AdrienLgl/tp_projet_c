@@ -162,7 +162,7 @@ void initCalculator() { // init calculator
             initCalculator();
         }
 
-        switch(operand)
+        switch(operand) // make operation
             {
                 case '+':
                     result = x1 + x2;
@@ -185,11 +185,11 @@ void initCalculator() { // init calculator
                     break;
             }
 
-        char str[80];
-        previous = str;
-        operand = 'E';
-        sprintf(previous, "%f", result);
-        printf("res: %g", result);
+        char str[100];
+        previous = str; // reset previous value
+        operand = 'E'; // reset operand
+        sprintf(previous, "%f", result); // assign result to previous
+        printf("res: %g", result); // display result
     }
 }
 
