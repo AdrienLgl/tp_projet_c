@@ -4,7 +4,9 @@ Dans le cadre du projet final en C, nous avons implémenté plusieurs fonctions 
 
 Vous trouverez les différentes parties du sujet dans ce repo ainsi que le détail de l'énoncé ci-dessous. Enjoy ;-) !
 
-## Enoncé
+## Partie 1
+
+### Enoncé
 
 Nous avons le basecode nécessaire pour afficher un caractère avec un appel système depuis le C. Le but de cet exercice est de développer en C à  partir de ce code une fonction plus sophistiquée présentant des fonctionnalités équivalentes à  **printf()** de la bibliothèque **stdio.h**. Vous disposez d’un basecode assez complet pour cet exercice ; il vous suffit pour la majorité des questions de compléter la fonction correspondante dans le fichier **Projet/Partie1/lib/io.c**
 
@@ -41,3 +43,59 @@ Interessez vous à la selection **\_Generic** (par exemple https://en.cppreferen
 **FURTHER  :7**
 
 Rajoutez maintenant les types manquants du langage C à votre fonction  **newPrintf(char \*, …)**.
+
+
+## Partie 2
+
+Sur cet exercice, le but était de concevoir une calculatrice acceptant les calculs floatants et entiers selon certains opérateurs.
+
+Différentes bibliothèques pouvaient être employées.
+
+La commande ```make install``` vous permettra de récupérer les différentes dépendences du projet et ```make clean``` de nettoyer les fichiers non sources.
+
+Pour lancer la calculatrice, veuillez exécuter cette commande :
+
+```sh
+make
+```
+
+Un terminal de commande apparaitra ensuite de la forme :
+
+```sh
+Hello ! Please enter an integer or float operation
+
+id >
+```
+
+Veuillez saisir vos calculs via ce terminal :
+
+```sh
+Hello ! Please enter an integer or float operation
+
+id > 24 + 8
+res: 32
+```
+Vous avez la possibilité de réutiliser le résultat précédent via ```res```.
+
+Ex:
+
+```sh
+id > 24 + 8
+res: 32
+
+id > res + 4
+res: 36
+```
+
+
+La commande ```quit``` vous permet de quitter la calculatrice et ```flush``` de vider le contenu de l'interface.
+
+Voici les opérations possibles à ce jour :
+
+| Opération | Opérateur |
+|-----------|:----------|
+| Addition | + |
+| Soustraction | - |
+| Multiplication | * |
+| Division | / |
+| Modulo | % |
