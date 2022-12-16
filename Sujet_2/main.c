@@ -4,6 +4,10 @@
 #include<stdbool.h>
 #include<ctype.h>
 #include <curses.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+#include <termios.h>
+#include <math.h>
 
 char input[100]; // input
 void red(){ printf("\033[1;31m");} // red color
@@ -11,7 +15,7 @@ void yellow(){ printf("\033[1;33m");} // color yellow
 void reset(){ printf("\033[0m");} // reset color
 void size(){ printf("\033[25;80H"); }
 bool quit = false; // quit status
-char operators[5] = {'+', '-', '*', '/', '%'}; // operators
+char operators[6] = {'+', '-', '*', '/', '%', '^'}; // operators
 char * previous = "null"; // previous result
 char operand; // operator
 float result; // final result
@@ -51,7 +55,7 @@ void error(char * message) { // generic error message
 
 char findOperator(char * value) { // get operator from string
     char operator;
-    for (int op = 0; op <= 4; op++) {
+    for (int op = 0; op <= 5; op++) {
         char * result = strchr(value, operators[op]);
         if (result != NULL) {
             switch(operators[op])
@@ -70,6 +74,9 @@ char findOperator(char * value) { // get operator from string
                     break;
                 case '%':
                     return '%';
+                    break;
+                case '^':
+                    return '^';
                     break;
                 default:
                     return 'E'; // error
@@ -98,13 +105,17 @@ void initCalculator() { // init calculator
             initCalculator();
         }
 
+        if(isdigit(input[0]) == 0 && input[0] != 'r') { // prevent invalid operation
+            error("Your operation is invalid, please retry");
+            initCalculator();
+        }
+
         operand = findOperator(input); // find operator
 
         if (operand == 'E') { // check if error during operator identification
             error("Your operation is invalid, please retry");
             initCalculator();
         }
-
 
         // remove whitespace in expression
         int i;
@@ -115,7 +126,7 @@ void initCalculator() { // init calculator
             input[++j] = '\0';
 
 
-        const char *sep = "%+-*/"; // separators
+        const char *sep = "%+-*/^"; // separators
         char *x1_str = strtok(input, sep); // strok slice char * value, first parameter is input and second the separator
         char *x2_str = strtok(NULL, sep);
 
@@ -156,7 +167,6 @@ void initCalculator() { // init calculator
             initCalculator();
         }
 
-
         if ((operand == '/' || operand == '%') && x2 == 0) { // prevent 0 for division
             error("Incorrect operation");
             initCalculator();
@@ -179,6 +189,9 @@ void initCalculator() { // init calculator
                 case '%':
                     result = (int) x1 % (int) x2;
                     break;
+                case '^':
+                    result = pow(x1, x2);
+                    break;
                 default:
                     error("Incorrect operation, please retry");
                     initCalculator();
@@ -193,10 +206,12 @@ void initCalculator() { // init calculator
     }
 }
 
-
-
 int main (){
-    printf("%s\n", "Hello ! Please enter an integer or float operation");
+    printf("%s\n", "Hello, please enter your operations");
+    struct winsize w;
+    w.ws_col = 80;
+    w.ws_row = 25;
+    ioctl(STDOUT_FILENO, TIOCSWINSZ, &w); // set columns and rows
     initCalculator();
     return 0;
 }

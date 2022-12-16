@@ -43,7 +43,7 @@ int main()
 	
 	
 	#ifdef TODO5
-	newPrintf("L'entier vaut : %d, le chractère est : %c, et le string est : %s et pour finir l'entier est encore: %d\n",111,'A',"hello", 150);
+	newPrintf("L'entier vaut : %d, le charactère est : %c, et le string est : %s\n",111,'A',"hello");
 	#endif	
 	
 	#ifdef TODO6
@@ -52,7 +52,7 @@ int main()
 	printG((char)'C');
 	EOL;
 	printG("Hello\n");
-	#endif	
+	#endif
 	
 	return 0;
 }

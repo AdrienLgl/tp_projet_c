@@ -54,3 +54,12 @@ TODO6_32:nasm32
 
 clean:
 	rm *.o*
+
+install:
+	sudo apt-get install nasm mingw-w64
+
+win-64:
+	x86_64-w64-mingw32-gcc -o programme.exe main.c
+
+win-32:
+	i686-w64-mingw32-gcc -o programme.exe main.c
