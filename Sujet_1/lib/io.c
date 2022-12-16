@@ -1,6 +1,5 @@
 #include"io.h"
 #include<stdarg.h>
-#include<string.h>
 extern void putChar(int, char*, int);
 
 int getLength(char* str) {
@@ -52,7 +51,7 @@ void printInteger(int i)
 	c[n] = '\0';
 	char rev[n];
 	int end = n - 1;
-	for (int begin = 0; begin <= n; begin++)
+	for (int begin = 0; begin <= n; begin++) // reverse
 	{
 		rev[begin] = c[end];
 		end--;
@@ -69,6 +68,37 @@ int intlen(int i) {
 	return count;
 }
 
+/* FURTHER 7 */
+void printFloat(float value) {
+    int integer_part = (int)value;  // integer part
+    float decimal_part = value - integer_part;  // decimal part
+    if (integer_part < 0) {
+        printChar('-');  // negative sign
+        integer_part = -integer_part;
+    }
+    if (integer_part >= 10) {
+        // recursively print the tens and units digits
+        printInteger(integer_part / 10);
+    }
+    printChar('0' + integer_part % 10);  // print the units digit
+    // print the decimal point and the decimal part
+    printChar('.');
+    int precision = 3;  // number of digits after the decimal point
+    while (precision-- > 0) {
+        decimal_part *= 10;
+        int digit = (int)decimal_part;
+        printChar('0' + digit);
+        decimal_part -= digit;
+    }
+}
+
+void printPercentage(float value) {
+    printFloat(value);
+	printChar('%');
+}
+
+/* FURTHER 7 */
+
 // TODO 5
 // create a printf to print differents types
 int newPrintf(char* str, ...)
@@ -76,7 +106,7 @@ int newPrintf(char* str, ...)
 	va_list parameters;
     va_start(parameters, str);
 
-	size_t totalCharacters = 0; 
+	int totalCharacters = 0; 
     char currentChar;
 
     while( (currentChar = *str) != '\0' ) {
@@ -98,7 +128,7 @@ int newPrintf(char* str, ...)
             case 's': // string
                 {
                     char* string = (char*) va_arg(parameters, char*);
-					totalCharacters += strlen(string);
+					totalCharacters += getLength(string);
                     printString(string);
                 }
                 break;
@@ -107,6 +137,21 @@ int newPrintf(char* str, ...)
 					char c = (char) va_arg(parameters, int);
 					totalCharacters ++;
 					printChar(c);
+				}
+				break;
+			case 'f': // float
+				{
+					float floatValue = (float) va_arg(parameters, double);
+					totalCharacters ++;
+					printFloat(floatValue);
+				}
+				break;
+			case '%': // percentage (only float)
+				{
+					float value = (float) va_arg(parameters, double);
+					totalCharacters ++;
+					printPercentage(value);
+
 				}
 				break;
             default: // error if type isn't defined
@@ -119,8 +164,6 @@ int newPrintf(char* str, ...)
     va_end( parameters );
 	return totalCharacters;
 }
-
-
 
 
 
